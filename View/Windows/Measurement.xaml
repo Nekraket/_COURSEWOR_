@@ -1,0 +1,53 @@
+﻿<Window x:Class="Курсовая.View.Windows.Measurement"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Курсовая.View.Windows"
+        mc:Ignorable="d"
+        Title="Измерения" Height="1080" Width="1920" MinHeight="300" MinWidth="600"
+        WindowState="Maximized">
+    <Grid Background="#F5F5F5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="White" BorderBrush="#E0E0E0" BorderThickness="0,0,0,1">
+            <Button Style="{StaticResource BtnReturnstyle}" Content="Добавление измерения" Click="BtnReturn_Click"/>
+        </Border>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="40" HorizontalAlignment="Center" MaxWidth="800">
+
+                <TextBlock Text="Выберите тип измерения" FontSize="28" FontWeight="SemiBold" Foreground="#333333" TextAlignment="Center" Margin="0,0,0,30"/>
+
+                <ItemsControl x:Name="MeasurementsList">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border x:Name="MeasurementBorder" Background="White" BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="8" Margin="0,8" Cursor="Hand" MouseLeftButtonDown="MeasurementBorder_MouseLeftButtonDown">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Text="{Binding}" FontSize="16" FontWeight="Medium" VerticalAlignment="Center" Foreground="#333333" Margin="20,16"/>
+                                </Grid>
+                            </Border>
+
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding IsMouseOver, ElementName=MeasurementBorder}" Value="True">
+                                    <Setter TargetName="MeasurementBorder" Property="Background" Value="#F0F8FF"/>
+                                    <Setter TargetName="MeasurementBorder" Property="BorderBrush" Value="#2C2C2C"/>
+                                    <Setter TargetName="MeasurementBorder" Property="BorderThickness" Value="2"/>
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

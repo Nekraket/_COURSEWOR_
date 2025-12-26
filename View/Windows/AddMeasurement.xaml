@@ -1,0 +1,133 @@
+﻿<Window x:Class="Курсовая.View.Windows.AddMeasurement"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Курсовая.View.Windows"
+        mc:Ignorable="d"
+        Title="Добавление измерения" Height="1080" Width="1920" MinHeight="970" MinWidth="400"
+        WindowState="Maximized">
+    <Grid Background="#F5F5F5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="White" BorderBrush="#E0E0E0" BorderThickness="0,0,0,1">
+            <Button x:Name="BtnReturn" Style="{StaticResource BtnReturnstyle}" Click="BtnReturn_Click"/>
+        </Border>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="600" Margin="20" Cursor="">
+
+                <TextBlock Text="{Binding PageTitle}" Style="{StaticResource HeaderTextStyle}" TextAlignment="Center" Margin="0,0,0,30" FontSize="20" FontWeight="SemiBold" Foreground="#2C2C2C"/>
+
+                <Border Background="Transparent" Cursor="Hand" Padding="10" HorizontalAlignment="Center">
+                    <Path Width="200" Height="200" Stretch="Uniform" Fill="#2C2C2C" Data="{Binding VectorPathData}"/>
+                </Border>
+
+                <TextBlock Text="Установите напоминания, чтобы регулярно регистрировать свои измерения и отслеживать прогресс." Style="{StaticResource HeaderTextStyle}" TextWrapping="Wrap" TextAlignment="Center" Margin="0,0,0,30"/>
+
+                <TextBlock Text="Периодичность" Style="{StaticResource HeaderTextStyle}" TextAlignment="Center" Margin="0,0,0,10"/>
+
+                <Expander Header="{Binding FrequencyHeaderText}" Style="{StaticResource ExpanderStyle}" Margin="0,0,0,30" HorizontalAlignment="Center" Width="350">
+                    <StackPanel Orientation="Vertical" Margin="0 10 0 0">
+                        <TextBlock Text="Выберите периодичность:" Style="{StaticResource TextDouwn}" Margin="0 0 0 10"/>
+
+                        <StackPanel Orientation="Vertical" Margin="0 10 0 0">
+                            <RadioButton x:Name="DailyRadio" Content="Каждый день" GroupName="Frequency" Checked="FrequencyRadio_Checked" Tag="daily" IsChecked="True"/>
+                            <RadioButton x:Name="WeeklyRadio" Content="Каждую неделю" GroupName="Frequency" Checked="FrequencyRadio_Checked" Tag="weekly" Margin="0,5,0,0"/>
+                            <RadioButton x:Name="MonthlyRadio" Content="Каждый месяц" GroupName="Frequency" Checked="FrequencyRadio_Checked" Tag="monthly" Margin="0,5,0,0"/>
+                            <RadioButton x:Name="CustomRadio" Content="Пользовательская" GroupName="Frequency" Checked="FrequencyRadio_Checked" Tag="custom" Margin="0,5,0,0"/>
+                        </StackPanel>
+
+                        <StackPanel x:Name="CustomFrequencyPanel" Orientation="Horizontal" Margin="0 10 0 0" Visibility="Collapsed">
+                            <TextBlock Text="Раз в" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <TextBox x:Name="CustomDaysTextBox" Text="1" Width="80" Style="{StaticResource RoundedTextBoxStyle}" TextChanged="CustomDaysTextBox_TextChanged"/>
+                            <TextBlock Text="дней" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Expander>
+
+                <StackPanel Orientation="Vertical" Margin="0,0,0,30">
+                    <TextBlock Text="Время напоминаний" Style="{StaticResource HeaderTextStyle}" TextAlignment="Center" Margin="0,0,0,15"/>
+                    <TextBlock Text="Добавьте время напоминаний:" Style="{StaticResource TextDouwn}" TextAlignment="Center" Margin="0,0,0,10"/>
+
+                    <ItemsControl x:Name="TimeCardsItemsControl" Margin="0,0,0,15" HorizontalAlignment="Center">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource TimeCardStyle}" Width="350" Tag="{Binding Id}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <StackPanel x:Name="ViewModePanel" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <TextBlock Text="{Binding Time, StringFormat=hh\\:mm}" Style="{StaticResource TimeViewTextStyle}"/>
+                                            <TextBlock Text=" - " FontSize="16" VerticalAlignment="Center" Margin="15,0"/>
+                                            <TextBlock VerticalAlignment="Center" FontSize="14" Foreground="#0078d7">
+                                            <Hyperlink TextDecorations="None" Click="EditTimeCard_Click" Tag="{Binding Id}">
+                                                <Hyperlink.Style>
+                                                    <Style TargetType="Hyperlink" BasedOn="{StaticResource {x:Type Hyperlink}}">
+                                                        <Setter Property="Foreground" Value="#0078d7"/>
+                                                    </Style>
+                                                </Hyperlink.Style>
+                                                изменить
+                                            </Hyperlink>
+                                            </TextBlock>
+                                        </StackPanel>
+
+                                        <StackPanel x:Name="EditModePanel" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
+                                            <TextBox x:Name="HoursTextBox" Text="{Binding EditHours}" 
+                                                     Style="{StaticResource TimeEditTextBoxStyle}" Width="60" PreviewTextInput="HoursTextBox_PreviewTextInput" MaxLength="2"/>
+                                            <TextBlock Text=":" FontSize="16" VerticalAlignment="Center" Margin="8,0" FontWeight="SemiBold"/>
+                                            <TextBox x:Name="MinutesTextBox" Text="{Binding EditMinutes}" Style="{StaticResource TimeEditTextBoxStyle}" 
+                                                     Width="60" PreviewTextInput="MinutesTextBox_PreviewTextInput" MaxLength="2"/>
+                                            <TextBlock Text=" - " FontSize="16" VerticalAlignment="Center" Margin="15,0"/>
+                                            <TextBlock VerticalAlignment="Center" FontSize="14" Foreground="#28a745">
+                                            <Hyperlink TextDecorations="None" Click="SaveTimeCard_Click" Tag="{Binding Id}">
+                                                <Hyperlink.Style>
+                                                    <Style TargetType="Hyperlink" BasedOn="{StaticResource {x:Type Hyperlink}}">
+                                                        <Setter Property="Foreground" Value="#28a745"/>
+                                                    </Style>
+                                                </Hyperlink.Style>
+                                                сохранить
+                                            </Hyperlink>
+                                            </TextBlock>
+                                        </StackPanel>
+
+                                        <Button Content="✕" Grid.Column="1" Style="{StaticResource DeleteTimeButtonStyle}" Click="DeleteTimeCard_Click" Tag="{Binding Id}" Margin="10,0,0,0"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <TextBlock TextAlignment="Center" Margin="0,15,0,0" FontSize="14">
+                    <Hyperlink TextDecorations="None" Click="AddTimeCard_Click">
+                        <Hyperlink.Style>
+                            <Style TargetType="Hyperlink" BasedOn="{StaticResource {x:Type Hyperlink}}">
+                                <Setter Property="Foreground" Value="#0078d7"/>
+                                <Setter Property="FontSize" Value="14"/>
+                            </Style>
+                        </Hyperlink.Style>
+                        Добавить время записи
+                    </Hyperlink>
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Text="Единицы измерения " Style="{StaticResource HeaderTextStyle}" Margin="0 0 100 0"/>
+                    <TextBlock Text="{Binding MeasurementUnits}" Style="{StaticResource HeaderTextStyle}"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="2" HorizontalAlignment="Center" Margin="0,20,0,30">
+            <Button Style="{StaticResource BtnSavestyle}" Width="320" Click="SaveMedicineButton_Click" HorizontalAlignment="Center" Margin="0 0 0 100"/>
+        </StackPanel>
+
+    </Grid>
+</Window>

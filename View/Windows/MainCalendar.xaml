@@ -1,0 +1,129 @@
+﻿<Window x:Class="Курсовая.View.Windows.MainCalendar"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Курсовая.View.Windows"
+        Title="Календарь событий" Height="750" Width="1200" MinHeight="520" MinWidth="1200"
+        WindowState="Maximized">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="#6C757D" Padding="20,15">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Style="{StaticResource BtnReturnstyle}" Content="Назад" Click="BtnBack_Click"/>
+
+                <TextBlock Grid.Column="1" Text="КАЛЕНДАРЬ" Style="{StaticResource TextUPUP}" VerticalAlignment="Center"/>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="2.3*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock x:Name="MonthYearText" Grid.Row="0" FontSize="18" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,0,0,20" VerticalAlignment="Center"/>
+
+                <Calendar Grid.Row="1" x:Name="CalendarControl" SelectionMode="SingleDate" Background="Transparent"
+                          HorizontalAlignment="Center" VerticalAlignment="Top" SelectedDatesChanged="CalendarControl_SelectedDatesChanged">
+                    <Calendar.LayoutTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="2" ScaleY="2"/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Calendar.LayoutTransform>
+                    <Calendar.CalendarDayButtonStyle>
+                        <Style TargetType="CalendarDayButton">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="CalendarDayButton">
+                                        <Grid>
+                                            <Border x:Name="DayButtonBorder" Background="{TemplateBinding Background}" 
+                                                    BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                            <Ellipse x:Name="HasEventsIndicator" Width="6" Height="6" Fill="#FF4081" 
+                                                     HorizontalAlignment="Right" VerticalAlignment="Top" Margin="4,4,0,0" Visibility="Collapsed"/>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter TargetName="DayButtonBorder" Property="Background" Value="#E3F2FD"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Calendar.CalendarDayButtonStyle>
+                </Calendar>
+            </Grid>
+
+            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="#E0E0E0" Margin="20,0"/>
+
+            <Border Grid.Column="2" Background="White" CornerRadius="10"  BorderBrush="#E0E0E0" BorderThickness="1" Padding="20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock x:Name="DayHeaderText" Grid.Row="0" Margin="0,0,0,15" FontSize="20" FontWeight="Bold" Foreground="#333333"/>
+
+                    <TabControl Grid.Row="1" x:Name="TasksTabControl" Margin="0" BorderThickness="0" SelectionChanged="TasksTabControl_SelectionChanged">
+                        <TabControl.ItemContainerStyle>
+                            <Style TargetType="TabItem">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="TabItem">
+                                            <Border x:Name="Border" Background="Transparent" BorderBrush="#E0E0E0" BorderThickness="0,0,0,2" Margin="0,0,20,0">
+                                                <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="10,5"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsSelected" Value="True">
+                                                    <Setter TargetName="Border" Property="BorderBrush" Value="#2196F3"/>
+                                                    <Setter Property="Foreground" Value="#2196F3"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </TabControl.ItemContainerStyle>
+
+                        <TabItem Header="Ожидаемые задачи">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <StackPanel x:Name="PendingTasksPanel">
+                                    <TextBlock x:Name="NoPendingTasksText" Text="Нет ожидающих задач" HorizontalAlignment="Center" Style="{StaticResource TextDouwn}"/>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </TabItem>
+
+                        <TabItem Header="Завершённые задачи">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <StackPanel x:Name="CompletedTasksPanel">
+                                    <TextBlock x:Name="NoCompletedTasksText" Text="Нет завершённых задач" HorizontalAlignment="Center" Style="{StaticResource TextDouwn}"/>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

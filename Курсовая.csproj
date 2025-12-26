@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Sourse\Images\archive_Image.png" />
+    <None Remove="Sourse\Images\Default_Image.png" />
+    <None Remove="Sourse\Images\Measurements_Image.png" />
+    <None Remove="Sourse\Images\Medicines_Image.png" />
+    <None Remove="Sourse\Images\Mood_Image.png" />
+    <None Remove="Sourse\Images\PersonalArchive_Image.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.22" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.22" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.22">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Sourse\Images\archive_Image.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Sourse\Images\Default_Image.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Sourse\Images\Measurements_Image.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Sourse\Images\Medicines_Image.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Sourse\Images\Mood_Image.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Sourse\Images\PersonalArchive_Image.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+</Project>

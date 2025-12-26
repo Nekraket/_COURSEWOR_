@@ -1,0 +1,98 @@
+﻿<Window x:Class="Курсовая.View.Windows.ChangeEditRecipient"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Изменение получателя" Height="600" Width="800"
+        ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+    <Grid Background="#F5F5F5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="White" BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" Padding="30,20">
+            <TextBlock x:Name="TitleText" Text="Выберите нового получателя" FontSize="24" FontWeight="SemiBold" Foreground="#333333"/>
+        </Border>
+
+        <Grid Grid.Row="1" Margin="30">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Background="White" Style="{StaticResource ChangeRecipientCardStyle}" MouseLeftButtonDown="ForMyselfCard_MouseLeftButtonDown">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Background="#F8F9FA" CornerRadius="8,8,0,0" Padding="20,15">
+                        <TextBlock Text="Для себя" FontSize="20" FontWeight="SemiBold" Foreground="#333333"/>
+                    </Border>
+
+                    <StackPanel Grid.Row="1" Margin="20" VerticalAlignment="Center">
+                        <Border Background="White" CornerRadius="40" Width="80" Height="80" BorderBrush="#E0E0E0" BorderThickness="2" HorizontalAlignment="Center" Margin="0,0,0,20">
+                            <Image x:Name="UserAvatarImage" Width="70" Height="70" Stretch="UniformToFill">
+                                <Image.Clip>
+                                    <EllipseGeometry RadiusX="35" RadiusY="35" Center="35,35"/>
+                                </Image.Clip>
+                            </Image>
+                        </Border>
+
+                        <TextBlock Text="Для себя" FontSize="18" FontWeight="SemiBold" Foreground="#333333" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="1" Background="White" Style="{StaticResource ChangeRecipientCardStyle}" Margin="10 0 0 0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Background="#F8F9FA" CornerRadius="8,8,0,0" Padding="20,15">
+                        <TextBlock Text="Получатели ухода" FontSize="20" FontWeight="SemiBold" Foreground="#333333"/>
+                    </Border>
+
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="10">
+                        <ItemsControl x:Name="RecipientsItemsControl">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="#F8F9FA" Padding="15" Margin="5" Style="{StaticResource ChangeRecipientCardStyle}" MouseLeftButtonDown="RecipientCard_MouseLeftButtonDown">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Border Background="White" CornerRadius="25" Width="50" Height="50" Margin="0,0,15,0">
+                                                <Image Source="{Binding AvatarImage}" Width="45" Height="45" Stretch="UniformToFill">
+                                                    <Image.Clip>
+                                                        <EllipseGeometry RadiusX="22.5" RadiusY="22.5" Center="22.5,22.5"/>
+                                                    </Image.Clip>
+                                                </Image>
+                                            </Border>
+
+                                            <TextBlock Grid.Column="1" Text="{Binding Имя}" VerticalAlignment="Center" FontSize="16" FontWeight="SemiBold" Foreground="#333333"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Border Grid.Row="2" Background="White" BorderBrush="#E0E0E0" BorderThickness="0,1,0,0" Padding="20">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="BtnCancel" Content="Отмена" Width="120" Height="50"  Margin="0,0,10,0" Click="BtnCancel_Click" Style="{StaticResource BtnActive3style}"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

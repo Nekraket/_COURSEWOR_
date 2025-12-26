@@ -1,0 +1,42 @@
+﻿<Window x:Class="Курсовая.View.Windows.AddRecipient"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Курсовая.View.Windows"
+        mc:Ignorable="d"
+        Title="{Binding WindowTitle}" Height="1080" Width="1920" MinHeight="650" MinWidth="700"
+        WindowState="Maximized">
+
+    <Grid Background="#F5F5F5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="White" BorderBrush="#E0E0E0" BorderThickness="0,0,0,1">
+            <Button Content="{Binding WindowTitle}" Style="{StaticResource BtnReturnstyle}" Click="BtnReturn_Click"/>
+        </Border>
+
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="600" Margin="20">
+            <Border Background="Transparent" Padding="10" HorizontalAlignment="Center">
+                <Canvas Width="200" Height="200">
+                    <Image x:Name="AvatarPreviewImage" Source="/Sourse/Images/Default_Image.png" Width="200" Height="200"/>
+
+                    <Button x:Name="BtnChange" Content="✏️" Height="70" Width="70" FontSize="40" Canvas.Left="140" Canvas.Top="110" Style="{StaticResource CircleButtonStyle}" Click="BtnChange_Click"/>
+                </Canvas>
+            </Border>
+
+            <TextBlock Text="Создайте профиль для человека, о котором вы заботитесь, чтобы управлять его лечением и следить за тем, чтобы всё проходило по плану."
+                       Style="{StaticResource HeaderTextStyle}" TextWrapping="Wrap" TextAlignment="Center" Margin="0,0,0,30"/>
+
+            <StackPanel Margin="40 0 40 0">
+                <TextBlock Text="Имя" Style="{StaticResource HeaderTextStyle}" Margin="0,0,0,10"/>
+                <TextBox x:Name="RecipientNameTextBox" Style="{StaticResource RoundedTextBoxStyle}" Height="45" FontSize="16"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" Margin="0,20,0,30">
+                <Button Style="{StaticResource BtnSavestyle}" Content="{Binding SaveButtonText}" Width="320" Click="BtnSave_Click" HorizontalAlignment="Center" Margin="0 0 0 100"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
